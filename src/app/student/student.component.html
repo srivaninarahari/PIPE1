@@ -3,7 +3,7 @@
     <label>Name</label>
       <div class="form-group">
         
-          <input type="text" name="name" class="form-control" [(ngModel)]="userDetails.name " #name="ngModel" maxlength="15"minlength ="2" required #refName>
+          <input type="text" name="name" class="form-control" [(ngModel)]="userDetails.name " pattern="[A-Za-z]+"  #name="ngModel" maxlength="15"minlength ="2" required #refName>
           
           <div *ngIf="name.errors && (name.dirty || name.touched)"
           class="alert alert-danger">
@@ -16,11 +16,30 @@
           <div [hidden]="!name.errors.maxlength">
           Name cannot exceed 15 characters.
           </div>
+          <div [hidden]="!name.errors.pattern">
+            Name accepts only alphabets.
+            </div>
         </div> 
         </div>
+        <label>PHONE NUMBER</label>
+        <div class="form-group">
+          
+            <input type="text" name="phone" class="form-control" [(ngModel)]="userDetails.phone " pattern="[0-9]+"  #phone="ngModel" required #refPhone>
+            
+            <div *ngIf="phone.errors && (phone.dirty || phone.touched)"
+            class="alert alert-danger">
+            <div [hidden]="!phone.errors.required">
+                PHONE NUMBER is required
+            </div>
+            
+            <div [hidden]="!phone.errors.pattern">
+              accepts only numbers
+              </div>
+          </div> 
+          </div>
         <label>DATE</label>
         <div class="form-group">
-            <input type="date" name="date" class="fo  rm-control" #date="ngModel" #date="ngModel" [(ngModel)]="userDetails.date"  #refDate>
+            <input type="date" name="date" class="fo  rm-control" #date="ngModel"required [(ngModel)]="userDetails.date"  #refDate>
             <div *ngIf="date.errors && (date.dirty || date.touched)"
             class="alert alert-danger">
             <div [hidden]="!date.errors.required">
@@ -29,12 +48,18 @@
             </div>
         </div>
         <div class="form-group">
-            <select class="txt-box" name="gender" [(ngModel)]="userDetails.genderType" class="form-control"  #refGender>
+            <select class="txt-box" name="gender" #gender="ngModel"required  [(ngModel)]="userDetails.genderType" class="form-control"  #refGender>
               <option [value]="userDetails.genderType" [disabled]="true">Select Option </option>
                 <option *ngFor="let gender of genderArray" [ngValue]="gender.value">
                 {{gender.value}}
                 </option>
           </select>
+          <div *ngIf="gender.errors && (gender.dirty || gender.touched)"
+          class="alert alert-danger">
+          <div [hidden]="!gender.errors.required">
+            gender is required
+          </div>
+          </div>
         </div>
     <div class="form-group">
         <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid" >Submit</button>
@@ -49,16 +74,17 @@
         <thead>
           <tr>
             <th>Name</th>
-            
+            <th>PHONE NUMBER</th>
             <th>DATE</th>
             <th>Gender</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of arrayList">
-            <td>{{item.name | uppercase}} </td>
-            <td>{{item.date|date:'mediumDate'}} </td>
-            <td>{{item.gender}}</td>
+          <tr *ngFor="let item of arrayList  ">
+            <td>{{item.name | json}} </td>
+            <td>{{item.phone |json}} </td>
+            <td>{{item.date|json :date:'medium'}} </td>
+            <td>{{item.gender|uppercase}}</td>
              </tr>
         </tbody>
       </table>

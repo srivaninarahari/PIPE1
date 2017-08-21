@@ -17,7 +17,8 @@ export class StudentComponent implements OnInit {
    this.userDetails={
      name:"",
      date:"",
-     genderType: ''
+     genderType: '',
+     phone:''
    }
    this.genderArray= this._dropDoenService.getDropDown();  
   }
@@ -25,7 +26,8 @@ export class StudentComponent implements OnInit {
    let model={ 
      name:values.name,
      date:values.date,
-     gender: values.gender
+     gender: values.gender,
+     phone:values.phone
   
   }
  this._listService.addList(model);
