@@ -23,6 +23,7 @@ export class StudentComponent implements OnInit {
    this.genderArray= this._dropDoenService.getDropDown();  
   }
   submit(values){
+    console.log(values);
    let model={ 
      name:values.name,
      date:values.date,
@@ -30,6 +31,7 @@ export class StudentComponent implements OnInit {
      phone:values.phone
   
   }
+ 
  this._listService.addList(model);
  this.arrayList=this._listService.getList();
   }
