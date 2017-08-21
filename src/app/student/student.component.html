@@ -2,11 +2,31 @@
   <form #f="ngForm" (ngSubmit)="submit(f.value)">
     <label>Name</label>
       <div class="form-group">
-          <input type="text" name="name" class="form-control" [(ngModel)]="userDetails.name "   #refName>
+        
+          <input type="text" name="name" class="form-control" [(ngModel)]="userDetails.name " #name="ngModel" maxlength="15"minlength ="2" required #refName>
+          
+          <div *ngIf="name.errors && (name.dirty || name.touched)"
+          class="alert alert-danger">
+          <div [hidden]="!name.errors.required">
+          Name is required
+          </div>
+          <div [hidden]="!name.errors.minlength">
+          Name must be at least 2 characters long.
+          </div>
+          <div [hidden]="!name.errors.maxlength">
+          Name cannot exceed 15 characters.
+          </div>
+        </div> 
         </div>
         <label>DATE</label>
         <div class="form-group">
-            <input type="date" name="date" class="form-control" [(ngModel)]="userDetails.date"  #refDate>
+            <input type="date" name="date" class="fo  rm-control" #date="ngModel" #date="ngModel" [(ngModel)]="userDetails.date"  #refDate>
+            <div *ngIf="date.errors && (date.dirty || date.touched)"
+            class="alert alert-danger">
+            <div [hidden]="!date.errors.required">
+           DATE is required
+            </div>
+            </div>
         </div>
         <div class="form-group">
             <select class="txt-box" name="gender" [(ngModel)]="userDetails.genderType" class="form-control"  #refGender>
@@ -17,7 +37,7 @@
           </select>
         </div>
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" [disabled]="!f.form.valid" >Submit</button>
         
       </div>
       
